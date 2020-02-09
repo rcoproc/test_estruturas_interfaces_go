@@ -1,9 +1,24 @@
 package main
 
-func Perimetro(retangulo Retangulo) float64 {
-	return 2 * (retangulo.largura + retangulo.altura)
+import "math"
+
+type Retangulo struct {
+	Largura float64
+	Altura  float64
 }
 
-func Area(retangulo Retangulo) float64 {
-	return retangulo.largura * retangulo.altura
+type Circulo struct {
+	Raio float64
+}
+
+type Forma interface {
+	Area() float64
+}
+
+func (r Retangulo) Area() float64 {
+	return r.Largura * r.Altura
+}
+
+func (c Circulo) Area() float64 {
+	return math.Pi * c.Raio * c.Raio
 }

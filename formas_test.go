@@ -2,27 +2,23 @@ package main
 
 import "testing"
 
-type Retangulo struct {
-	largura float64
-	altura  float64
-}
-
-func TestPerimetro(t *testing.T) {
-	retangulo := Retangulo{10.0, 10.0}
-	resultado := Perimetro(retangulo)
-	esperado := 40.0
-
-	if resultado != esperado {
-		t.Errorf("resultado %.2f esperado %.2f", resultado, esperado)
-	}
-}
-
 func TestArea(t *testing.T) {
-	retangulo := Retangulo{12.0, 6.0}
-	resultado := Area(retangulo)
-	esperado := 72.0
+	verificaArea := func(t *testing.T, forma Forma, esperado float64) {
+		t.Helper()
+		resultado := forma.Area()
 
-	if resultado != esperado {
-		t.Errorf("resultado %.2f, esperado %.2f", resultado, esperado)
+		if resultado != esperado {
+			t.Errorf("resultado %.2f esperado %.2f", resultado, esperado)
+		}
 	}
+
+	t.Run("Retângulos", func(t *testing.T) {
+		retangulo := Retangulo{10.0, 6.0}
+		verificaArea(t, retangulo, 60.0)
+	})
+
+	t.Run("Círculos", func(t *testing.T) {
+		circulo := Circulo{10}
+		verificaArea(t, circulo, 314.1592653589793)
+	})
 }
